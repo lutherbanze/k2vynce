@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K2 Vynce - Precision Oncology</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <span style="font-weight: 700; font-size: 24px; color: #202124;">K2 Vynce</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#problem">The Problem</a></li>
+                <li><a href="#solution">The Platform</a></li>
+                <li><a href="#why">Why K2 think</a></li>
+                <li><a href="#demo">Demo</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="#" class="btn btn-secondary">Request a Demo</a>
+                <a href="#" class="btn btn-primary">Sign Up</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="material-icons">menu</i>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>A Theragnostic AI Platform for Precision NSCLC Treatment</h1>
+                <p>K2 Think powers a scalable platform to identify tumor-specific molecular networks, assess inhibitor effects, and predict outcomes before treatment begins.</p>
+                <a href="#solution" class="btn btn-primary btn-large">Discover The Platform</a>
+            </div>
+            <div class="hero-image">
+                <img src="./k2.svg" alt="Illustration of a molecular network">
+            </div>
+        </section>
+
+        <section id="problem" class="features">
+            <h2>The Problem: Critical Gaps in NSCLC Care</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="material-icons feature-icon">groups</i>
+                    <h3>Target Users & Scope</h3>
+                    <p>For oncologists, researchers, and developers in the fight against NSCLC, a disease fueled by complex genetic mutations and molecular networks.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="material-icons feature-icon">error_outline</i>
+                    <h3>Critical Pain Points</h3>
+                    <p>Care is hindered by blind spots in druggable mutations, tumor resistance to inhibitors like osimertinib, and toxicity from off-target effects.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="material-icons feature-icon">warning</i>
+                    <h3>Importance & Urgency</h3>
+                    <p>NSCLC claims 1.8M lives annually. Patients demand personalized therapies tailored to their unique tumor networks, as every delay costs lives.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="material-icons feature-icon">science</i>
+                    <h3>Current Limitations</h3>
+                    <p>Today’s tools analyze single genes, missing the dynamic interplay of mutations and tumor biology that truly drives patient outcomes.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="solution" class="plans">
+            <h2>What You'll Build: The K2 Think Platform</h2>
+            <div class="plan-cards">
+                <div class="plan-card">
+                    <h3>Core Offering</h3>
+                    <ul style="margin-top: 30px;">
+                        <li>Uncovers pathway disruptions</li>
+                        <li>Tests inhibitors virtually for response & resistance</li>
+                        <li>Accelerates discovery of new drug targets</li>
+                        <li>Enables personalized medicine via patient gene maps</li>
+                        <li>Generates onco-specific safety alerts</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline" style="margin-top: 20px;">Learn More</a>
+                </div>
+                <div class="plan-card recommended">
+                    <span class="badge-recommended">Simple & Powerful</span>
+                    <h3>User Flow</h3>
+                    <ul style="margin-top: 30px;">
+                        <li><strong>Input:</strong> NGS genomic profile and current/planned medications.</li>
+                        <li><strong>Process:</strong> K2 Think models the tumor's unique network using NSCLC and drug databases.</li>
+                        <li><strong>Output:</strong> Interactive diagram with actionable insights and safety warnings.</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline" style="margin-top: 20px;">See The Flow</a>
+                </div>
+                <div class="plan-card">
+                    <h3>Tech Stack</h3>
+                    <ul style="margin-top: 30px;">
+                        <li>K2 Think API for network reasoning</li>
+                        <li>Cytoscape.js for visualization</li>
+                        <li>Flask backend for data security</li>
+                        <li>COSMIC, TCGA, DrugBank, ChEMBL</li>
+                        <li>Modular design for easy expansion</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline" style="margin-top: 20px;">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="why" class="features">
+            <h2>Why K2 Think</h2>
+            <div class="single-column-text">
+                <p>K2 Think excels with unparalleled complex systems reasoning and deep data integration, parsing dynamic interactions—genetic mutations, inhibitor mechanisms, tumor microenvironments—to infer causal network relationships. This is critical
+                    for decoding NSCLC’s tangled, evolving networks, ensuring predictions guide precise interventions rather than relying on guesswork, a necessity in high-stakes oncology.</p>
+            </div>
+        </section>
+
+        <section id="demo" class="plans">
+            <h2>Demo (MVP)</h2>
+            <div class="single-column-text">
+                <p>In 48 hours, a live prototype can reconstruct a patient’s specific NSCLC network—not textbook pathways, but their tumor. We can assess the effectiveness of drugs pre-prescription, forecast resistance routes, optimize the regimen, manage
+                    drug interactions and toxicity, and explain every recommendation with transparent, literature-backed reasoning.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">K2 Vynce</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">About Us</a>
+            </div>
+            <div class="language-selector">
+                <i class="material-icons">language</i>
+                <select name="language" id="language">
+                    <option value="en-US">English (United States)</option>
+                </select>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
