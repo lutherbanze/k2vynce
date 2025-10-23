@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K2 Vynce - Workflow & Data</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <span style="font-weight: 700; font-size: 24px; color: #202124;">K2 Vynce</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#workflow">Workflow</a></li>
+                <li><a href="#data-explorer">Data Explorer</a></li>
+                <li><a href="index.html#team">Our Team</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="#" class="btn btn-secondary">Demo app</a>
+                <a href="#" class="btn btn-primary">Documentation</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="material-icons">menu</i>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="workflow" class="features">
+            <h2>Workflow</h2>
+
+            <p class="section-subtitle">Tap to expand</p>
+
+            <div class="workflow-wrapper">
+                <div class="flow-container">
+                    <div class="node" onclick="toggleDetails('patient-details')">
+                        Patient
+                        <div class="details" id="patient-details">
+                            ID: PAT001<br> Name: John Doe<br> Age: 63<br> Sex: Male<br> Diagnosis: NSCLC<br> Subtype: Adenocarcinoma<br> Notes: High-risk patient
+                        </div>
+                    </div>
+                    <div class="arrow"></div>
+                    <div class="node" onclick="toggleDetails('sample-details')">
+                        Sample
+                        <div class="details" id="sample-details">
+                            Sample ID: SMP001<br> Type: Tumor<br> Tissue: Lung<br> Stage: IIIA<br> Grade: Moderately differentiated<br> Notes: RNA-seq prepared<br> Molecular Profile ID: MP001
+                        </div>
+                    </div>
+                    <div class="arrow"></div>
+                    <div class="node" onclick="toggleDetails('molecular-details')">
+                        Molecular Profile
+                        <div class="details" id="molecular-details">
+                            <div class="subnode" onclick="toggleDetails('mutations-details', event)">Mutations</div>
+                            <div class="subdetails" id="mutations-details">
+                                EGFR: L858R<br> TP53: R273H<br> KRAS: G12C
+                            </div>
+                            <div class="subnode" onclick="toggleDetails('expression-details', event)">Expression</div>
+                            <div class="subdetails" id="expression-details">
+                                EGFR: 2.4<br> TP53: 1.0<br> KRAS: 1.8
+                            </div>
+                            <div class="subnode" onclick="toggleDetails('cnv-details', event)">CNV</div>
+                            <div class="subdetails" id="cnv-details">
+                                EGFR: Amplified<br> TP53: Normal<br> KRAS: Normal
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arrow"></div>
+                    <div class="node" onclick="toggleDetails('k2think-details')">
+                        K2 Think Analysis
+                        <div class="details" id="k2think-details">
+                            <div class="subnode" onclick="toggleDetails('genes-details', event)">Genes Analyzed</div>
+                            <div class="subdetails" id="genes-details">
+                                <b>EGFR</b>: Oncogene, L858R<br> Predicted Response: Sensitive<br> Inhibitors: Erlotinib, Osimertinib<br><br>
+                                <b>TP53</b>: Tumor Suppressor, R273H<br> Predicted Response: Unknown
+                            </div>
+                            <div class="subnode" onclick="toggleDetails('summary-details', event)">Summary</div>
+                            <div class="subdetails" id="summary-details">
+                                Primary Targets: EGFR, KRAS<br> Best Candidate: EGFR<br> Confidence Score: 0.87
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="data-explorer" class="plans">
+            <h2>Explore the Data</h2>
+            <p class="section-subtitle">Tap a chip to view the data</p>
+            <div class="explorer-container">
+                <div class="explorer-chips">
+                    <button class="chip" onclick="showData('patients', this)">Patient</button>
+                    <button class="chip" onclick="showData('samples', this)">Sample</button>
+                    <button class="chip" onclick="showData('molecular_profiles', this)">Molecular Profile</button>
+                    <button class="chip" onclick="showData('k2think_analysis', this)">K2Think Analysis</button>
+                </div>
+                <div id="explorer-card" class="explorer-card">
+                    <pre><code id="json-output"></code></pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">K2 Vynce</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">About Us</a>
+            </div>
+            <div class="language-selector">
+                <i class="material-icons">language</i>
+                <select name="language" id="language">
+                    <option value="en-US">English (United States)</option>
+                </select>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleDetails(id, event) {
+            if (event) event.stopPropagation();
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+
+        const jsonData = {
+            "patients": [{
+                "patient_id": "PAT001",
+                "name": "John Doe",
+                "age": 63,
+                "sex": "Male",
+                "diagnosis": "Non-Small Cell Lung Cancer",
+                "subtype": "Adenocarcinoma",
+                "notes": "High-risk patient, smoker history"
+            }],
+            "samples": [{
+                "sample_id": "SMP001",
+                "patient_id": "PAT001",
+                "sample_type": "tumor",
+                "collection_date": "2025-10-23T00:00:00Z",
+                "molecular_profile_id": "MP001",
+                "tissue_origin": "lung",
+                "tumor_stage": "Stage IIIA",
+                "tumor_grade": "Moderately differentiated",
+                "pathologist_report": "Adenocarcinoma with EGFR mutation detected.",
+                "is_primary_sample": true,
+                "related_samples": ["SMP002"],
+                "notes": "Used for RNA-seq analysis."
+            }],
+            "molecular_profiles": [{
+                "molecular_profile_id": "MP001",
+                "sample_id": "SMP001",
+                "patient_id": "PAT001",
+                "mutations": [{
+                    "gene": "EGFR",
+                    "mutation": "L858R"
+                }, {
+                    "gene": "TP53",
+                    "mutation": "R273H"
+                }, {
+                    "gene": "KRAS",
+                    "mutation": "G12C"
+                }],
+                "expression": [{
+                    "gene": "EGFR",
+                    "level": 2.4
+                }, {
+                    "gene": "TP53",
+                    "level": 1.0
+                }, {
+                    "gene": "KRAS",
+                    "level": 1.8
+                }, {
+                    "gene": "MET",
+                    "level": 1.7
+                }, {
+                    "gene": "ALK",
+                    "level": 0.3
+                }],
+                "cnv": [{
+                    "gene": "EGFR",
+                    "status": "amplified"
+                }, {
+                    "gene": "TP53",
+                    "status": "normal"
+                }, {
+                    "gene": "KRAS",
+                    "status": "normal"
+                }, {
+                    "gene": "MET",
+                    "status": "normal"
+                }, {
+                    "gene": "ALK",
+                    "status": "normal"
+                }]
+            }],
+            "k2think_analysis": [{
+                "analysis_id": "AN001",
+                "patient_id": "PAT001",
+                "sample_id": "SMP001",
+                "molecular_profile_id": "MP001",
+                "analysis_date": "2025-10-24T12:00:00Z",
+                "genes_analyzed": [{
+                    "gene": "EGFR",
+                    "role": "oncogene",
+                    "status": {
+                        "expression": 2.4,
+                        "mutation": "L858R",
+                        "amplification": "amplified"
+                    },
+                    "known_inhibitors": ["erlotinib", "gefitinib", "osimertinib"],
+                    "predicted_response": "sensitive",
+                    "resistance_risk": "moderate",
+                    "combination_suggestions": ["EGFR TKI + MET inhibitor"]
+                }, {
+                    "gene": "TP53",
+                    "role": "tumor suppressor",
+                    "status": {
+                        "expression": 1.0,
+                        "mutation": "R273H",
+                        "amplification": "normal"
+                    },
+                    "known_inhibitors": [],
+                    "predicted_response": "unknown",
+                    "resistance_risk": "unknown",
+                    "combination_suggestions": []
+                }, {
+                    "gene": "KRAS",
+                    "role": "oncogene",
+                    "status": {
+                        "expression": 1.8,
+                        "mutation": "G12C",
+                        "amplification": "normal"
+                    },
+                    "known_inhibitors": ["sotorasib", "adagrasib"],
+                    "predicted_response": "uncertain",
+                    "resistance_risk": "moderate",
+                    "combination_suggestions": ["KRAS G12C inhibitor + EGFR TKI"]
+                }, {
+                    "gene": "MET",
+                    "role": "oncogene",
+                    "status": {
+                        "expression": 1.7,
+                        "mutation": "none",
+                        "amplification": "normal"
+                    },
+                    "known_inhibitors": ["capmatinib", "tepotinib", "savolitinib"],
+                    "predicted_response": "uncertain",
+                    "resistance_risk": "unknown",
+                    "combination_suggestions": []
+                }, {
+                    "gene": "ALK",
+                    "role": "oncogene",
+                    "status": {
+                        "expression": 0.3,
+                        "mutation": "none",
+                        "amplification": "normal"
+                    },
+                    "known_inhibitors": ["crizotinib", "alectinib", "brigatinib", "lorlatinib"],
+                    "predicted_response": "resistant",
+                    "resistance_risk": "unknown",
+                    "combination_suggestions": []
+                }],
+                "summary": {
+                    "primary_targets": ["EGFR", "KRAS"],
+                    "best_candidate": "EGFR",
+                    "novel_combinations": ["EGFR TKI + MET inhibitor", "KRAS G12C inhibitor + EGFR TKI"],
+                    "confidence_score": 0.87
+                },
+                "notes": "Demo analysis generated for presentation purposes."
+            }]
+        };
+
+        function syntaxHighlight(json) {
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+                var cls = 'json-number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'json-key';
+                    } else {
+                        cls = 'json-string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'json-boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'json-null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+
+        function showData(dataKey, element) {
+            const outputElement = document.getElementById('json-output');
+            const cardElement = document.getElementById('explorer-card');
+
+            const chips = document.querySelectorAll('.explorer-chips .chip');
+            chips.forEach(chip => chip.classList.remove('active'));
+            element.classList.add('active');
+
+            const data = jsonData[dataKey];
+            const formattedJson = JSON.stringify(data, null, 2);
+
+            outputElement.innerHTML = syntaxHighlight(formattedJson);
+            cardElement.classList.add('visible');
+        }
+    </script>
+</body>
+
+</html>
